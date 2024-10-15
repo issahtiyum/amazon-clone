@@ -656,5 +656,38 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "id1",
+    image: "images/products/adidas-jabulani.jpg",
+    name: "Adidas Jabulani",
+    rating: {
+      stars: 4.5,
+      count: 1284
+    },
+    priceCents: 38000,
+    keywords: [
+      "soccer",
+      "football",
+      "ball",
+      "world cup"
+    ]
+  },
+  {
+    id: "id2",
+    image: "images/products/ghana-home-kit-2022-2024.webp",
+    name: "Ghana Home Kit 2022 - 2024",
+    rating: {
+      stars: 4.5,
+      count: 83
+    },
+    priceCents: 1500,
+    keywords: [
+      "soccer",
+      "football",
+      "jersey",
+      "kit",
+      "ghana"
+    ]
   }
 ];
