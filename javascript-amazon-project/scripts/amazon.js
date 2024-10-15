@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 let productsHTML = ''
 
 products.forEach((product) => {
@@ -58,7 +60,7 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
 
-    let timeoutId;
+    let addedMessageTimeoutId;
 
     button.addEventListener('click', ()=>{
       const {productId} = button.dataset;
@@ -95,9 +97,9 @@ document.querySelectorAll('.js-add-to-cart')
       document.querySelector(`.added-${productId}`)
         .classList.add('show-added')
 
-      if (timeoutId) clearTimeout(timeoutId);
+      if (addedMessageTimeoutId) clearTimeout(addedMessageTimeoutId);
       
-      timeoutId = setTimeout(() => {
+      addedMessageTimeoutId = setTimeout(() => {
         document.querySelector(`.added-${productId}`)
         .classList.remove('show-added')
       },2000)
