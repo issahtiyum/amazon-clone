@@ -1,4 +1,4 @@
-import {calculateCartQuantity, cart, removeFromCart, updateQuantity} from "../data/cart.js";
+import {calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity} from "../data/cart.js";
 import {products} from "../data/products.js"
 import {formatCurrency} from "./utils/money.js";
 import {hello} from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
@@ -40,7 +40,7 @@ cart.forEach((cartItem) => {
 
   cartSummaryHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
-      <div class="delivery-date">
+      <div class="delivery-date js-delivery-date-${matchingProduct.id}">
         Delivery date: ${dateString}
       </div>
 
@@ -101,7 +101,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem){
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option" data-product-id = "${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}">
         <input type="radio" 
         ${isChecked ? 'checked' : '' }
         class="delivery-option-input"
@@ -203,3 +203,34 @@ document.querySelector('.js-order-summary')
       document.querySelector('.js-cart-quantity')
         .innerHTML = `${cartQuantity} items`;
     }
+
+    document.querySelectorAll('.js-delivery-option')
+      .forEach((element) => {
+        element.addEventListener('click', () => {
+          const {productId, deliveryOptionId} = element.dataset
+          updateDeliveryOption(productId, deliveryOptionId)
+
+          let matchingItem;
+
+          cart.forEach((cartItem) => {
+            if (productId === cartItem.productId) {
+              matchingItem = cartItem
+            }
+          })
+
+          let deliveryOption;
+          deliveryOptions.forEach((option) => {
+            if (option.id === deliveryOptionId) {
+              deliveryOption = option
+            }
+          })
+
+          const today = dayjs();
+
+          const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+      
+          const dateString = deliveryDate.format('dddd, MMMM, D');
+
+          document.querySelector(`.js-delivery-date-${productId}`).innerHTML = `Delivery date: ${dateString}`
+        })
+      })
