@@ -1,4 +1,4 @@
-import {calculateCartQuantity, cart, removeFromCart} from "../data/cart.js";
+import {calculateCartQuantity, cart, removeFromCart, updateQuantity} from "../data/cart.js";
 import {products} from "../data/products.js"
 import { formatCurrency } from "./utils/money.js";
 
@@ -31,10 +31,14 @@ cart.forEach((cartItem) => {
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+              Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="update-quantity-link js-update-quantity-link link-primary" data-product-id = "${matchingProduct.id}">
               Update
+            </span>
+            <input class="quantity-input js-quantity-input js-quantity-input-${matchingProduct.id}" data-product-id = "${matchingProduct.id}">
+            <span class="save-quantity-link js-save-quantity-link link-primary" data-product-id = "${matchingProduct.id}">
+              Save
             </span>
             <span class="delete-quantity-link link-primary js-delete-link" data-product-id = "${matchingProduct.id}">
               Delete
@@ -104,6 +108,65 @@ document.querySelector('.js-order-summary')
         updateCartQuantity()
       })
     })
+
+    document.querySelectorAll('.js-update-quantity-link')
+      .forEach((link) => {
+        link.addEventListener('click', () => {
+          const {productId} =link.dataset;
+
+          document.querySelector(`.js-cart-item-container-${productId}`).
+            classList.add('is-editing-quantity')
+        })
+      })
+
+    document.querySelectorAll('.js-save-quantity-link')
+      .forEach((link) => {
+        link.addEventListener('click', () => {
+          const {productId} =link.dataset;
+
+          const newQuantityInput = document.querySelector(`.js-quantity-input-${productId}`)
+          const newQuantity = Number(newQuantityInput.value)
+
+          if (newQuantity <= 0 || newQuantity >= 1000) {
+            alert('Quantity must be between 0 and 1000');
+            return;
+          }
+
+          updateQuantity(productId, newQuantity)
+
+          document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity
+          updateCartQuantity()
+
+          document.querySelector(`.js-cart-item-container-${productId}`).
+            classList.remove('is-editing-quantity')
+        })
+      })
+
+    document.querySelectorAll('.js-quantity-input')
+      .forEach((input) => {
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            const {productId} =input.dataset;
+
+            const newQuantityInput = document.querySelector(`.js-quantity-input-${productId}`)
+            const newQuantity = Number(newQuantityInput.value)
+
+            if (newQuantity <= 0 || newQuantity >= 1000) {
+              alert('Quantity must be between 0 and 1000');
+              return;
+            }
+  
+            updateQuantity(productId, newQuantity)
+  
+            document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity
+            updateCartQuantity()
+  
+            document.querySelector(`.js-cart-item-container-${productId}`).
+              classList.remove('is-editing-quantity')
+          }
+        })
+      })
+
 
     updateCartQuantity()
 
