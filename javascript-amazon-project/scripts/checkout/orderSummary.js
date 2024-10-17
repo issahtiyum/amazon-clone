@@ -110,7 +110,6 @@ export function renderOrderSummary() {
         removeFromCart(productId);
 
         renderCheckoutHeader();
-
         renderPaymentSummary();
         renderOrderSummary();
       })
@@ -141,8 +140,9 @@ export function renderOrderSummary() {
 
         updateQuantity(productId, newQuantity)
 
-        document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity
-        renderCheckoutHeader()
+        renderCheckoutHeader();
+        renderPaymentSummary();
+        renderOrderSummary();
 
         document.querySelector(`.js-cart-item-container-${productId}`).
           classList.remove('is-editing-quantity')
