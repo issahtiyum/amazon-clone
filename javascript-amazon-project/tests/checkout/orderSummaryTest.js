@@ -2,10 +2,10 @@ import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 
-describe('test suite: renderOrderSummary', () => {
-  const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
-  const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
+const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
+const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
 
+describe('test suite: renderOrderSummary', () => {
   beforeEach(() => {
     spyOn(localStorage, 'setItem');
 
@@ -92,4 +92,43 @@ describe('test suite: renderOrderSummary', () => {
       document.querySelector(`.js-product-price-${productId2}`).innerHTML
     ).toContain('$20.95')
   });
+})
+
+describe('test suite: updateDeliveryOption', () => {
+  beforeEach(() => {
+    spyOn(localStorage, 'setItem');
+
+    spyOn(localStorage, 'getItem').and.callFake(() => {
+      return JSON.stringify([{
+        productId: productId1,
+        quantity: 2,
+        deliveryOptionId: '1'
+      }, {
+        productId: productId2,
+        quantity: 1,
+        deliveryOptionId: '2'
+      }]);
+    });
+
+    document.querySelector('.js-test-container').innerHTML = `
+      <div class="js-cart-quantity"></div>
+      <div class="js-order-summary"></div>
+      <div class="js-payment-summary"></div>
+    `;
+
+    loadFromStorage();
+    renderOrderSummary();
+  })
+  afterEach(() => {
+    document.querySelector('.js-test-container').innerHTML = '';
+  })
+
+  it('updates the delivery option', () => {
+    document.querySelector(`.js-delivery-option-${productId1}-3`)
+      .click()
+
+    expect(document.querySelector(`.js-delivery-option-input-${productId1}-3`).checked).toEqual(true)
+    expect(document.querySelector('.js-shipping-price').innerText).toEqual('$14.98')
+    expect(document.querySelector('.js-total-price').innerText).toEqual('$63.50')
+  })
 })
