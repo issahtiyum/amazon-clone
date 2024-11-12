@@ -97,16 +97,13 @@ export function loadProductsFetch(){
       return new Product(productDetails);
     });
 
-    console.log('load products');
   }).catch(() => {
     console.log('Unexpected error. Please try again later.')
   });
 
   return promise;
 }
-// loadProductsFetch().then(() => {
-//   console.log('next step')
-// });
+
 
 export function loadProducts(func) {
   const xhr = new XMLHttpRequest();

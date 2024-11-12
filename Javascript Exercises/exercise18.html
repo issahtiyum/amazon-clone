@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise</title>
+</head>
+<body>
+  <script>
+    /* a.
+      const xhr = new XMLHttpRequest()
+      xhr.addEventListener('load', () => {
+        console.log(xhr.response)
+      })
+      xhr.open('GET', 'https://supersimplebackend.dev/greeting')
+
+      xhr.send()
+    */
+    /* b.
+      fetch('https://supersimplebackend.dev/greeting'
+      ).then((response) => {
+        return response.text()
+      }).then((text) => {
+        console.log(text)
+      })
+    */
+    /* c.
+      async function showGreeting(){
+        const response = await fetch('https://supersimplebackend.dev/greeting'),
+        text = await response.text();
+        console.log(text)
+      }
+
+      showGreeting()
+    */
+    /* d.
+      async function postName() {
+        await fetch('https://supersimplebackend.dev/greeting', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({name: 'Haris'})
+        });
+
+        const response = await fetch('https://supersimplebackend.dev/greeting')
+        const nameObject = await response.text()
+        console.log(nameObject)
+      }
+
+      postName()
+    */
+
+    /* e. & f.
+    fetch('https://amazon.com').catch(console.log('CORS error.Your request was blocked by the backend'))
+    */
+
+    fetch('https://supersimplebackend.dev/greeting', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'json/application'
+      },
+    }).then((response) => {
+      if (response.status >= 400) {
+        throw response;
+      }
+    }).catch((error) => {
+      if (error.status === 400) {
+        error.json().then((errorInfo) => {
+          console.log(errorInfo)
+        })
+      } else {
+        console.log('Network error. Please try again later')
+      }
+    })
+
+  </script>
+</body>
+</html>
