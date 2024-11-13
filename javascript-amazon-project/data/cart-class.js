@@ -112,7 +112,11 @@ class Cart {
   
     this.saveToStorage();
   }
-  
+  updateCartQuantity(){
+    const cartQuantity = cart.calculateCartQuantity()
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+  }
 }
 
 

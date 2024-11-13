@@ -78,19 +78,13 @@ async function renderOrders() {
       })
   })
 
-  updateCartQuantity()
-
-  function updateCartQuantity(){
-    const cartQuantity = cart.calculateCartQuantity()
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
-  }
+  cart.updateCartQuantity()
 
   document.querySelectorAll('.js-buy-again')
   .forEach((button) => {
     button.addEventListener('click', () => {
       cart.addToCart(button.dataset.productId)
-      updateCartQuantity()
+      cart.updateCartQuantity()
       button.innerHTML = 'Added';
       setTimeout(() => {
         button.innerHTML = `

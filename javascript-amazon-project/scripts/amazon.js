@@ -63,13 +63,7 @@ function renderProductsGrid() {
   })
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-  updateCartQuantity()
-
-  function updateCartQuantity(){
-    const cartQuantity = cart.calculateCartQuantity()
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
-  }
+  cart.updateCartQuantity()
 
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
@@ -78,7 +72,7 @@ function renderProductsGrid() {
       button.addEventListener('click', ()=>{
         const {productId} = button.dataset;
         cart.addToCart(productId);
-        updateCartQuantity()
+        cart.updateCartQuantity()
       
         document.querySelector(`.added-${productId}`)
           .classList.add('show-added')
