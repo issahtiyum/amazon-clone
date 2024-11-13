@@ -3,9 +3,9 @@ import { formatDate } from "./utils/formatDate.js";
 import { formatCurrency } from "./utils/money.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 
-let ordersHTML = ''
 
 async function renderOrders() {
+  let ordersHTML = ''
   orders.forEach((order) => {
     console.log(order)
     ordersHTML += `
