@@ -2,12 +2,11 @@ import { orders } from "../data/orders.js";
 import { formatDate } from "./utils/formatDate.js";
 import { formatCurrency } from "./utils/money.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
-
+import { cart } from "../data/cart-class.js";
 
 async function renderOrders() {
   let ordersHTML = ''
   orders.forEach((order) => {
-    console.log(order)
     ordersHTML += `
       <div class="order-container js-order-container" data-order-id = "${order.id}">
 
@@ -61,15 +60,14 @@ async function renderOrders() {
                 <div class="product-quantity">
                   Quantity: ${product.quantity}
                 </div>
-                <button class="buy-again-button button-primary">
+                <button class="buy-again-button button-primary buy-${product.productId} js-buy-again" data-product-id=${product.productId}>
                   <img class="buy-again-icon" src="images/icons/buy-again.png">
-                  <span class="buy-again-message buy-${product.productId}">Buy it again</span>
+                  <span class="buy-again-message ">Buy it again</span>
                 </button>
               </div>
   
               <div class="product-actions">
-                <a href="tracking.html">
-                  <button class="track-package-button button-secondary track-package-${orderId}-${product.productId}" data-order-id="${orderId}" data-product-id="${product.productId}">
+                  <button class="track-package-button button-secondary js-track-package js-track-package-${orderId}-${product.productId}" data-order-id="${orderId}" data-product-id="${product.productId}">
                     Track package
                   </button>
                 </a>
@@ -79,7 +77,36 @@ async function renderOrders() {
         }
       })
   })
-  console.log(ordersHTML)
+
+  updateCartQuantity()
+
+  function updateCartQuantity(){
+    const cartQuantity = cart.calculateCartQuantity()
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity;
+  }
+
+  document.querySelectorAll('.js-buy-again')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      cart.addToCart(button.dataset.productId)
+      updateCartQuantity()
+      button.innerHTML = 'Added';
+      setTimeout(() => {
+        button.innerHTML = `
+          <img class="buy-again-icon" src="images/icons/buy-again.png">
+          <span class="buy-again-message">Buy it again</span>
+        `;
+      }, 1500);
+    })
+  })
+
+  document.querySelectorAll('.js-track-package')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      window.location.href = `tracking.html?orderId="${button.dataset.orderId}"&productId="${button.dataset.productId}"`;
+    })
+  })
 
 }
 renderOrders()
