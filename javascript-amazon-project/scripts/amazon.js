@@ -7,8 +7,29 @@ loadProducts(renderProductsGrid);
 function renderProductsGrid() {
   
   let productsHTML = ''
+  const url = new URL(window.location.href)
+  const search = url.searchParams.get('search')
+  let filteredProducts = products;
 
-  products.forEach((product) => {
+  if(search) {
+    filteredProducts = products.filter((product) => {
+      const productNameLowerCase = product.name.toLowerCase();
+      let validProduct;
+      if(productNameLowerCase.includes(search.toLowerCase())){
+        validProduct = true;
+        return validProduct
+      } 
+      product.keywords.forEach((keyword) => {
+        if(keyword.includes(search.toLowerCase())){
+          validProduct = true
+        }
+      })
+      
+      return validProduct;
+    })
+  }
+
+  filteredProducts.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
@@ -66,18 +87,6 @@ function renderProductsGrid() {
 
   cart.updateCartQuantity()
 
-  document.querySelector('.js-search-button')
-    .addEventListener('click', () => {
-      searchForProduct()
-    })
-
-    document.querySelector('.js-search-bar')
-    .addEventListener('keydown', (value) => {
-      if (value.key === 'Enter') {
-        searchForProduct()
-      }
-    })
-
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
       let addedMessageTimeoutId;
@@ -97,4 +106,20 @@ function renderProductsGrid() {
         },2000)
       });   
     });
+
+  // This is for the search
+  document.querySelector('.js-search-button')
+  .addEventListener('click', () => {
+    searchForProduct()
+  })
+
+  document.querySelector('.js-search-bar')
+  .addEventListener('keydown', (value) => {
+    if (value.key === 'Enter') {
+      searchForProduct()
+    }
+  })
+
+  
+
 }
