@@ -1,5 +1,6 @@
 import { cart } from '../data/cart-class.js';
 import {products, loadProducts} from '../data/products.js';
+import { searchForProduct } from './utils/search.js';
 
 loadProducts(renderProductsGrid);
 
@@ -64,6 +65,18 @@ function renderProductsGrid() {
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
   cart.updateCartQuantity()
+
+  document.querySelector('.js-search-button')
+    .addEventListener('click', () => {
+      searchForProduct()
+    })
+
+    document.querySelector('.js-search-bar')
+    .addEventListener('keydown', (value) => {
+      if (value.key === 'Enter') {
+        searchForProduct()
+      }
+    })
 
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {

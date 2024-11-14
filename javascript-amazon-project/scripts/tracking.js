@@ -13,14 +13,14 @@ async function renderTrackingPage() {
 
   let matchingOrder;
   orders.forEach(order => {
-    if (orderId === `"${order.id}"`) {
+    if (orderId === order.id) {
       matchingOrder = order;
     }
   });
   let matchingProduct;
   let deliveryTime;
   matchingOrder.products.forEach((product) => {
-    if (productId === `"${product.productId}"`) {
+    if (productId === product.productId) {
       matchingProduct = getProduct(product.productId)
       deliveryTime = product.estimatedDeliveryTime
       document.querySelector('.main').innerHTML = `

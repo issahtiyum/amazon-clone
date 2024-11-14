@@ -3,8 +3,11 @@ import { formatDate } from "./utils/formatDate.js";
 import { formatCurrency } from "./utils/money.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import { cart } from "../data/cart-class.js";
+import { searchForProduct } from "./utils/search.js";
 
 async function renderOrders() {
+  await loadProductsFetch()
+
   let ordersHTML = ''
   orders.forEach((order) => {
     ordersHTML += `
@@ -35,8 +38,6 @@ async function renderOrders() {
   });
 
   document.querySelector('.js-orders-grid').innerHTML = ordersHTML
-
-  await loadProductsFetch()
 
   document.querySelectorAll('.js-order-details-grid')
     .forEach((orderContainer) => {
@@ -98,8 +99,20 @@ async function renderOrders() {
   document.querySelectorAll('.js-track-package')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      window.location.href = `tracking.html?orderId="${button.dataset.orderId}"&productId="${button.dataset.productId}"`;
+      window.location.href = `tracking.html?orderId=${button.dataset.orderId}&productId=${button.dataset.productId}`;
     })
+  })
+
+  document.querySelector('.js-search-button')
+  .addEventListener('click', () => {
+    searchForProduct()
+  })
+
+  document.querySelector('.js-search-bar')
+  .addEventListener('keydown', (value) => {
+    if (value.key === 'Enter') {
+      searchForProduct()
+    }
   })
 
 }
