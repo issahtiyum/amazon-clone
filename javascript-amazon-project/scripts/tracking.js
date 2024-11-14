@@ -17,11 +17,12 @@ async function renderTrackingPage() {
       matchingOrder = order;
     }
   });
-
   let matchingProduct;
+  let deliveryTime;
   matchingOrder.products.forEach((product) => {
     if (productId === `"${product.productId}"`) {
       matchingProduct = getProduct(product.productId)
+      deliveryTime = product.estimatedDeliveryTime
       document.querySelector('.main').innerHTML = `
           <div class="order-tracking">
             <a class="back-to-orders-link link-primary" href="orders.html">
@@ -29,7 +30,7 @@ async function renderTrackingPage() {
             </a>
     
             <div class="delivery-date">
-              Arriving on ${dayjs(product.estimatedDeliveryTime).format('dddd, MMMM D')}
+              Arriving on ${dayjs(deliveryTime).format('dddd, MMMM D')}
             </div>
     
             <div class="product-info">
@@ -43,24 +44,41 @@ async function renderTrackingPage() {
             <img class="product-image" src=${matchingProduct.image}>
     
             <div class="progress-labels-container">
-              <div class="progress-label">
+              <div class="progress-label js-preparing-label">
                 Preparing
               </div>
-              <div class="progress-label current-status">
+              <div class="progress-label js-shipped-label">
                 Shipped
               </div>
-              <div class="progress-label">
+              <div class="progress-label js-delivered-label">
                 Delivered
               </div>
             </div>
     
             <div class="progress-bar-container">
-              <div class="progress-bar"></div>
+              <div class="progress-bar" style="width:${calculateDeliveryProgress()}%"></div>
             </div>
           </div>
       `
     }
   })
+
+  function calculateDeliveryProgress(){
+    const currentTime = dayjs(),
+    orderTime = dayjs(matchingOrder.orderTime);
+
+    const deliveryProgress = ((currentTime - orderTime)/(dayjs(deliveryTime) - orderTime)) * 100
+    return deliveryProgress;
+  }
+
+  let status = calculateDeliveryProgress();
+  if (status >= 0 && status < 50) {
+    document.querySelector('.js-preparing-label').classList.add('current-status')
+  } else if(status >= 50 && status < 100){
+    document.querySelector('.js-shipped-label').classList.add('current-status')
+  } else if(status >= 100){
+    document.querySelector('.js-delivered-label').classList.add('current-status')
+  }
 }
 
 renderTrackingPage()
