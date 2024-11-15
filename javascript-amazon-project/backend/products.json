@@ -8,6 +8,7 @@
       "count": 87
     },
     "priceCents": 1090,
+    "type":"clothing",
     "keywords": [
       "socks",
       "sports",
@@ -98,6 +99,7 @@
       "count": 317
     },
     "priceCents": 2400,
+    "type":"clothing",
     "keywords": [
       "hoodies",
       "sweaters",
@@ -224,6 +226,7 @@
       "count": 160
     },
     "priceCents": 1699,
+    "type":"clothing",
     "keywords": [
       "shorts",
       "apparel",
@@ -403,6 +406,7 @@
       "count": 83
     },
     "priceCents": 1250,
+    "type":"clothing",
     "keywords": [
       "hats",
       "winter hats",
@@ -421,6 +425,7 @@
       "count": 9017
     },
     "priceCents": 2290,
+    "type":"clothing",
     "keywords": [
       "pants",
       "apparel",
@@ -498,6 +503,7 @@
       "count": 248
     },
     "priceCents": 2400,
+    "type":"clothing",
     "keywords": [
       "pants",
       "sweatpants",
@@ -649,6 +655,7 @@
       "stars": 4.5,
       "count": 3157
     },
+    "type":"clothing",
     "priceCents": 2400,
     "keywords": [
       "sweaters",
