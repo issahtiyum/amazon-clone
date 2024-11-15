@@ -98,8 +98,17 @@ export function renderOrderSummary() {
     return html
   }
 
+  
   document.querySelector('.js-order-summary')
-    .innerHTML = cartSummaryHTML;
+  .innerHTML = cartSummaryHTML;
+
+  if (!cart.cartItems.length) {
+    document.querySelector('.js-order-summary')
+    .innerHTML = `
+      <div class="empty-message">Your cart is empty</div>
+      <a class="button-primary view-products-link" href="amazon.html">View Products</a>`
+    console.log('hello')
+  }
 
   document.querySelectorAll('.js-delete-link')
     .forEach((link) => {

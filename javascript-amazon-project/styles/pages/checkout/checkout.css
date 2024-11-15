@@ -14,6 +14,10 @@
   margin-right: auto;
 }
 
+a{
+  text-decoration: none;
+}
+
 .page-title {
   font-weight: 700;
   font-size: 22px;
@@ -226,4 +230,18 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+
+.place-order-button-disabled{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.view-products-link{
+  margin-top: 10px;
+  padding: 8px 15px;
+}
+
+.empty-message{
+  margin-bottom: 20px;
 }

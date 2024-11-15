@@ -94,4 +94,8 @@ export function renderPaymentSummary() {
       window.location.href = 'orders.html';
 
     });
+
+  if (!cart.cartItems.length) {
+    document.querySelector('.js-place-order').classList.add('place-order-button-disabled')
+  }
 }
