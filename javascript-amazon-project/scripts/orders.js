@@ -4,6 +4,7 @@ import { formatCurrency } from "./utils/money.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import { cart } from "../data/cart-class.js";
 import { searchForProduct } from "./utils/search.js";
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
 async function renderOrders() {
   await loadProductsFetch()
@@ -46,6 +47,7 @@ async function renderOrders() {
         if (order.id === orderId) {
           order.products.forEach((product) => {
             let matchingProduct = getProduct(product.productId)
+            const stateMessage =  dayjs(product.estimatedDeliveryTime) > dayjs() ? 'Arriving':'Delivered'
             document.querySelector(`.js-order-details-${orderId}`).innerHTML+=`
               <div class="product-image-container">
                 <img src="${matchingProduct.image}">
@@ -56,7 +58,7 @@ async function renderOrders() {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-delivery-date">
-                  Arriving on: ${formatDate(product.estimatedDeliveryTime)}
+                  ${stateMessage} on: ${formatDate(product.estimatedDeliveryTime)}
                 </div>
                 <div class="product-quantity">
                   Quantity: ${product.quantity}

@@ -11,18 +11,21 @@ async function renderTrackingPage() {
 
   cart.updateCartQuantity()
 
+
   let matchingOrder;
   orders.forEach(order => {
     if (orderId === order.id) {
       matchingOrder = order;
     }
   });
+
   let matchingProduct;
   let deliveryTime;
   matchingOrder.products.forEach((product) => {
     if (productId === product.productId) {
       matchingProduct = getProduct(product.productId)
       deliveryTime = product.estimatedDeliveryTime
+      const stateMessage =  deliveryTime > dayjs() ? 'Arriving':'Delivered'
       document.querySelector('.main').innerHTML = `
           <div class="order-tracking">
             <a class="back-to-orders-link link-primary" href="orders.html">
@@ -30,7 +33,7 @@ async function renderTrackingPage() {
             </a>
     
             <div class="delivery-date">
-              Arriving on ${dayjs(deliveryTime).format('dddd, MMMM D')}
+              ${stateMessage} on ${dayjs(deliveryTime).format('dddd, MMMM D')}
             </div>
     
             <div class="product-info">
@@ -56,7 +59,7 @@ async function renderTrackingPage() {
             </div>
     
             <div class="progress-bar-container">
-              <div class="progress-bar" style="width:${calculateDeliveryProgress()}%"></div>
+              <div class="progress-bar js-progress-bar"></div>
             </div>
           </div>
       `
@@ -71,6 +74,10 @@ async function renderTrackingPage() {
     return deliveryProgress;
   }
 
+  setTimeout(() => {
+    document.querySelector('.js-progress-bar').style.width = `${calculateDeliveryProgress()}%`
+  }, 300);
+
   let status = calculateDeliveryProgress();
   if (status >= 0 && status < 50) {
     document.querySelector('.js-preparing-label').classList.add('current-status')
@@ -80,5 +87,4 @@ async function renderTrackingPage() {
     document.querySelector('.js-delivered-label').classList.add('current-status')
   }
 }
-
 renderTrackingPage()
