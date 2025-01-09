@@ -5,6 +5,7 @@ A simplified Amazon clone built using HTML, CSS, and JavaScript. The project inc
 
 ## Table of Contents
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Acknowledgments](#acknowledgments)
@@ -15,11 +16,19 @@ A simplified Amazon clone built using HTML, CSS, and JavaScript. The project inc
 - Dynamic product display
 - Responsive web design
 - Add-to-cart functionality with a simple user interface
+- View of cart
+- Responsive view of chekout and tracking pages
+
+## Screenshots
+![Home Page][javascript-amazon-project/images/site-screenshots/homepage.png]
+![Checkout][javascript-amazon-project/images/site-screenshots/checkout.png]
+![Orders][javascript-amazon-project/images/site-screenshots/orders.png]
+![Tracking][javascript-amazon-project/images/site-screenshots/tracking.png]
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/issahtiyum/amazon-clone.git
 
 2. Navigate to the project directory:
    ```bash
