@@ -67,7 +67,7 @@
     }).catch((error) => {
       if (error.status === 400) {
         error.json().then((errorInfo) => {
-          console.log(errorInfo)
+          console.log(errorInfo.errorMessage)
         })
       } else {
         console.log('Network error. Please try again later')
