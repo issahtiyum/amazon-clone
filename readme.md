@@ -20,10 +20,10 @@ A simplified Amazon clone built using HTML, CSS, and JavaScript. The project inc
 - Responsive view of chekout and tracking pages
 
 ## Screenshots
-![Home Page][javascript-amazon-project/images/site-screenshots/homepage.png 'Home Page']
-![Checkout][javascript-amazon-project/images/site-screenshots/checkout.png "Checkout Page"]
-![Orders][javascript-amazon-project/images/site-screenshots/orders.png "Orders Page"]
-![Tracking][javascript-amazon-project/images/site-screenshots/tracking.png "Tracking Page"]
+![Home Page][https://github.com/issahtiyum/amazon-clone/blob/main/javascript-amazon-project/images/site-screenshots/checkout.png "Home Page"]
+![Checkout][https://github.com/issahtiyum/amazon-clone/blob/main/javascript-amazon-project/images/site-screenshots/homepage.png "Checkout Page"]
+![Orders][https://github.com/issahtiyum/amazon-clone/blob/main/javascript-amazon-project/images/site-screenshots/homepage.png "Orders Page"]
+![Tracking][https://github.com/issahtiyum/amazon-clone/blob/main/javascript-amazon-project/images/site-screenshots/tracking.png "Tracking Page"]
 
 ## Installation
 1. Clone the repository:
