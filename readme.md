@@ -24,12 +24,15 @@ A simplified Amazon clone built using HTML, CSS, and JavaScript. The project inc
 2. Navigate to the project directory:
    ```bash
    cd amazon-clone
+   cd javascript-amazon-project
    ```
 3. Open `index.html` in your browser to start using the app.(The Live Server Extension will be best recommended to gain the full functionality of the programme)
 
 ## Usage
-1. Click the 'Generate' button to display a random quote.
-2. Click 'Copy' to save the quote to your clipboard or 'Share' to post it on social media.
+1. Browse the product categories.
+2. Add items to your cart.
+3. View the cart to see selected items and proceed.
+4. Place your order and track your products.
 
 ## Acknowledgement
 This project was inspired by the SuperSimpleDev javascript tutorial. Modifications and additional features were added to make it unique.
