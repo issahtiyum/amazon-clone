@@ -1,4 +1,4 @@
-# Amazon Clone
+# 🛒Amazon Clone
 
 ## Description
 A simplified Amazon clone built using HTML, CSS, and JavaScript. The project includes core e-commerce functionality and design elements, demonstrating a basic understanding of frontend development.
